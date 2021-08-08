@@ -2,6 +2,8 @@ const postgressConnection = require('../database');
 
 class ADNRepository {
 
+    //Reviso si ya existe la cadena
+    //En caso de no ser asi, la guardo en DB
     async ADNChainInDatabase(chain, nMutations, callback) {
         await postgressConnection
             .query(`SELECT * FROM dat."DNA" where "ChainValue" = '${chain}'`)
@@ -17,6 +19,7 @@ class ADNRepository {
             });
     }
 
+    //Guardo la cadena en DB 
     async saveInDB(chain, nMutation) {
         var isMutation = false;
         if (nMutation > 1)
@@ -30,6 +33,7 @@ class ADNRepository {
             });
     }
 
+    //Obtengo la lista con un limite de 10
     getList(callback) {
         postgressConnection.query(`SELECT * FROM dat."DNA" limit 10;`)
             .then((result) => {
@@ -39,6 +43,9 @@ class ADNRepository {
             });
     }
 
+    //Obtengo los stats
+    //Separo mutantes y no mutantes
+    //Encuentro el menor y mayor para encontrar el ratio
     getStats(callback) {
         postgressConnection.query(`SELECT * FROM dat."DNA"`)
             .then((table) => {

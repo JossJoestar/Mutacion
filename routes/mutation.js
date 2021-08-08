@@ -9,11 +9,13 @@ const checkADN = new CheckADN();
 const ADNRepository = require("../repository/ADN.repository");
 const repository = new ADNRepository();
 
+//Ruta inicial
 router.get("/", (request, response) => {
     console.log("Somebody is sending an Hello Wolrd");
     response.status(200).send("Hola Mundo");
 });
 
+//Ruta POST - Valida, revisa el adn y registra en BD
 router.post("/mutation", async (request, response) => {
     const dna = request.body.dna;
     dna.map((x) => {
@@ -34,12 +36,15 @@ router.post("/mutation", async (request, response) => {
     });
 });
 
+//Ruta List - Obtiene las ultimas 10 entradas 
 router.get("/list", async (req, res) => {
     repository.getList(r => {
         res.send(r);
     });
 });
 
+
+//Ruta Stats - Obtiene las estadisticas del numero de cadenas de ADN mutantes
 router.get("/stats", async (req, res) => {
     repository.getStats(r => {
         res.json({

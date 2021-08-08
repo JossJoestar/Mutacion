@@ -1,7 +1,9 @@
 var pg = require('pg');
+
+//configuracion extra de SSL para evitar errores
 pg.defaults.ssl = true;
 
-
+//Objeto de configuracion.
 var config = {
     user: 'wpzzijjqcoiajg',
     host: 'ec2-52-0-67-144.compute-1.amazonaws.com',
@@ -11,6 +13,7 @@ var config = {
     ssl:true
 };
 
+//Creacion de la conexion;
 var client = new pg.Client(config);
 client.connect();
 
