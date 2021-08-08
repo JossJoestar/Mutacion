@@ -31,7 +31,7 @@ class ADNRepository {
     }
 
     getList(callback) {
-        postgressConnection.query(`SELECT * FROM dat."DNA"`)
+        postgressConnection.query(`SELECT * FROM dat."DNA" limit 10;`)
             .then((result) => {
                 return callback(result.rows);
             }).catch((err) => {
